@@ -1,0 +1,14 @@
+services:
+  dashboard:
+    build:
+      context: .
+      target: dev          # cambiá a "prod" para servir la build estática
+    env_file:
+      - .env               # carga VITE_API_BASE_URL y cualquier variable futura
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app             # hot-reload: cambios locales se reflejan al instante
+      - /app/node_modules  # evita pisar los node_modules del contenedor
+    environment:
+      - NODE_ENV=development
