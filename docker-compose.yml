@@ -2,13 +2,21 @@ services:
   dashboard:
     build:
       context: .
-      target: dev          # cambiá a "prod" para servir la build estática
+      target: dev
+    image: music-dashboard
+    container_name: music_dashboard
     env_file:
-      - .env               # carga VITE_API_BASE_URL y cualquier variable futura
+      - .env
     ports:
       - "5173:5173"
     volumes:
-      - .:/app             # hot-reload: cambios locales se reflejan al instante
-      - /app/node_modules  # evita pisar los node_modules del contenedor
+      - .:/app
+      - /app/node_modules
     environment:
       - NODE_ENV=development
+    networks:
+      - music_network
+
+networks:
+  music_network:
+    external: true
