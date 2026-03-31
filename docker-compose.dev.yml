@@ -3,12 +3,16 @@ services:
     container_name: music_services_dashboard
     build:
       context: .
-      target: prod
+      target: dev
     env_file:
       - .env
     ports:
-      - "8001:80"
-    restart: unless-stopped
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
     networks:
       - music_network
 
